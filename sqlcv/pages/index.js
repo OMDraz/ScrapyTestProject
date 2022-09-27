@@ -6,29 +6,20 @@ import { gql } from "@apollo/client";
 import client from "../apollo-client";
 
 export async function getServerSideProps(context) {
-  try {
-    await clientPromise;
-    // `await clientPromise` will use the default database passed in the MONGODB_URI
-    // However you can use another database (e.g. myDatabase) by replacing the `await clientPromise` with the following code:
-    //
-    // `const client = await clientPromise`
-    // `const db = client.db("myDatabase")`
-    //
-    // Then you can execute queries against your database like so:
-    // db.find({}) or any of the MongoDB Node Driver commands
+  let res = await fetch("http://localhost:3000/api/posts", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  let allPosts = await res.json();
 
-    return {
-      props: { isConnected: true },
-    };
-  } catch (e) {
-    console.error(e);
-    return {
-      props: { isConnected: false },
-    };
-  }
+  return {
+    props: { allPosts },
+  };
 }
 
-export default function Home({ isConnected }) {
+export default function Home({ allPosts }) {
   return (
     <div class="container bg-gradient-to-r from-indigo-800 via-purple-800 to-pink-500 min-h-screen max-w-screen-xl grid grid-cols-6 row-8">
       <nav class="col-span-6 bg-gradient-to-r from-blue-400 to-blue-600 space-x-24 shadow md:flex md:items-center: md:justify-between">
@@ -79,14 +70,6 @@ export default function Home({ isConnected }) {
           </li>
         </ol>
       </div>
-      {isConnected ? (
-        <h2 className="subtitle">You are connected to MongoDB</h2>
-      ) : (
-        <h2 className="subtitle">
-          You are NOT connected to MongoDB. Check the <code>README.md</code> for
-          instructions.
-        </h2>
-      )}
       <footer class="col-span-6 rounded-lg md:flex md:items-center md:justify-between bg-gradient-to-r from-blue-400 to-blue-600">
         footer
       </footer>
