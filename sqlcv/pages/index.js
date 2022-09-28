@@ -13,13 +13,14 @@ export async function getServerSideProps(context) {
     },
   });
   let allPosts = await res.json();
-
   return {
     props: { allPosts },
   };
 }
 
 export default function Home({ allPosts }) {
+  let data = Array.from(allPosts.data);
+
   return (
     <div class="container bg-gradient-to-r from-indigo-800 via-purple-800 to-pink-500 min-h-screen max-w-screen-xl grid grid-cols-6 row-8">
       <nav class="col-span-6 bg-gradient-to-r from-blue-400 to-blue-600 space-x-24 shadow md:flex md:items-center: md:justify-between">
@@ -68,6 +69,14 @@ export default function Home({ allPosts }) {
           <li class="py-4">
             3. Copy the generated code into your SQL server and run it!
           </li>
+          <br></br>
+          {data.map((allPost) => (
+            <div key={allPost._id}>
+              <a>
+                <h3> {allPost.text}</h3>
+              </a>
+            </div>
+          ))}
         </ol>
       </div>
       <footer class="col-span-6 rounded-lg md:flex md:items-center md:justify-between bg-gradient-to-r from-blue-400 to-blue-600">

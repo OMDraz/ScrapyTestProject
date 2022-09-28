@@ -10,7 +10,7 @@ export default async function (req, res) {
       res.json(myPost.ops[0]);
       break;
     case "GET":
-      const allPosts = await db.collection("allPosts").find({}).toArray();
+      const allPosts = await db.collection("posts").find({}).toArray();
       res.json({ status: 200, data: allPosts });
       break;
   }
