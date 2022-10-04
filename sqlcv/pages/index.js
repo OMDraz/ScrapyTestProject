@@ -5,8 +5,8 @@ import Link from "next/link";
 import { gql } from "@apollo/client";
 import client from "../apollo-client";
 import Navigation from "../components/Navigation";
-import Footer from "../components/Footer";
-import Body from "../components/Body";
+import FooterNavigation from "../components/Footer";
+import SearchBar from "../components/SearchBar";
 
 export async function getServerSideProps(context) {
   let res = await fetch("http://localhost:3000/api/posts", {
@@ -27,8 +27,8 @@ export default function Home({ allPosts }) {
   return (
     <div class="grid-cols-1 grid-rows-6">
       <Navigation />
-      <Body />
-      <Footer />
+      <SearchBar />
+      <FooterNavigation />
     </div>
   );
 }
