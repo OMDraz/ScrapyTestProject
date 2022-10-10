@@ -1,5 +1,5 @@
 import React from "react";
-import { SearchAPI } from "../pages/api/search.js";
+import Link from "next/link";
 
 export default function SearchBar() {
   const [symbol, setSymbol] = React.useState("");
@@ -10,9 +10,10 @@ export default function SearchBar() {
 
   const handleClick = (event) => {
     event.preventDefault();
-    // 👇️ value of input field
-    let json = SearchAPI(symbol);
+    console.log({ symbol });
   };
+
+  const newURL = `/stock/${symbol}`;
 
   return (
     <div class="min-h-screen bg-gray-900 flex justify-center items-center">
@@ -34,7 +35,7 @@ export default function SearchBar() {
               onClick={handleClick}
               class="bg-indigo-500 text-white text-base rounded-lg px-4 py-2"
             >
-              Search Stock
+              <Link href={newURL}>Search Stock</Link>
             </button>
           </div>
         </div>

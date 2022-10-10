@@ -1,3 +1,5 @@
+import React from "react";
+
 export async function SearchAPI(data) {
   let res = await fetch(
     `https://api.aletheiaapi.com/StockData?symbol=${data}`,
@@ -10,6 +12,8 @@ export async function SearchAPI(data) {
       },
     }
   );
-  let json = await res.json();
-  console.log(json);
+
+  let stockData = await res.json();
+
+  return stockData;
 }
